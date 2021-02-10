@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
-#from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -10,10 +10,12 @@ app = Flask(__name__)
 def index():
     return 'Hello Mitches'
 
+
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -21,8 +23,19 @@ def show_user_profile(username):
     return '{}\'s profile'.format(escape(username))
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        f = request.files['the_file']
-        f.save('/var/www/uploads/' + secure_filename(f.filename))
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    return 'Post%d' % post_id
+
+
+@app.route('/path/<path:subpath>')
+def show_subpath(subpath):
+    return 'Subpath %s' % escape(subpath)
+
+@app.route('/projects/')
+def projects():
+    return 'The project page'
+
+@app.route('/about')
+def about():
+    return 'The about page'
