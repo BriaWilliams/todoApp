@@ -1,20 +1,52 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 # from flask_bootstrap import Bootstrap
 from markupsafe import escape
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-@app.route('/')
-def index():
-    return 'Hello Meeyotches?'
+@app.route('/test')
+def test():
+    return 'Hello Beeyotches'
 
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+
+@app.route('/')
+def index():
+    if 'username' in session:
+        return render_template('index.html')
+    return 'You are not logged in'
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+    return '''
+        <form method="post">
+            <p><input type=text name=username>
+            <p><input type=submit value=Login>
+        </form>
+    '''
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 @app.route('/user/<username>')
@@ -30,8 +62,8 @@ def show_post(post_id):
 
 @app.route('/path/<path:subpath>', methods=['GET'])
 def show_subpath(subpath):
-    # return 'Subpath %s' % escape(subpath)
-    return jsonify(name='bria', id=90, email=128)
+    return 'Subpath %s' % escape(subpath)
+    # return jsonify(name='bria', id=90, email=128)
 
 
 @app.route('/projects/')
@@ -45,4 +77,4 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
