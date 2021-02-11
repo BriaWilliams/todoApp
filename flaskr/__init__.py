@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 # from flask_bootstrap import Bootstrap
 from markupsafe import escape
@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Hello Mitches'
+    return 'Hello Meeyotches?'
 
 
 @app.route('/hello/')
@@ -28,14 +28,21 @@ def show_post(post_id):
     return 'Post%d' % post_id
 
 
-@app.route('/path/<path:subpath>')
+@app.route('/path/<path:subpath>', methods=['GET'])
 def show_subpath(subpath):
-    return 'Subpath %s' % escape(subpath)
+    # return 'Subpath %s' % escape(subpath)
+    return jsonify(name='bria', id=90, email=128)
+
 
 @app.route('/projects/')
 def projects():
-    return 'The project page'
+    return 'The projectgyuyg2 page'
+
 
 @app.route('/about')
 def about():
     return 'The about page'
+
+
+if __name__ == '__main__':
+    app.run(debug = True)
