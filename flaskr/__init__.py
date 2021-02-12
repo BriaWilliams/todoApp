@@ -2,11 +2,19 @@ from flask import Flask, render_template, session, redirect, url_for, request, j
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 # from flask_bootstrap import Bootstrap
+#from flaskr.models.todo import *
 from markupsafe import escape
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    complete = db.Column(db.Boolean)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -25,6 +33,8 @@ def hello(name=None):
 @app.route('/')
 def index():
     if 'username' in session:
+        todo_list = Todo.query.all()
+        print(todo_list)
         return render_template('index.html')
     return 'You are not logged in'
 
@@ -68,7 +78,7 @@ def show_subpath(subpath):
 
 @app.route('/projects/')
 def projects():
-    return 'The projectgyuyg2 page'
+    return 'The project page'
 
 
 @app.route('/about')
@@ -77,4 +87,6 @@ def about():
 
 
 if __name__ == '__main__':
+    db.create_all()
+
     app.run(debug=True)
