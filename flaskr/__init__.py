@@ -63,7 +63,7 @@ def add():
     db.session.commit()
     return redirect(url_for("index"))
 
-@app.route('/update/<int:todo_id>', methods=["POST"])
+@app.route('/update/<int:todo_id>')
 def update(todo_id):
     # update item
     todo = Todo.query.filter_by(id=todo_id).first()
@@ -71,7 +71,7 @@ def update(todo_id):
     db.session.commit()
     return redirect(url_for("index"))
 
-@app.route('/delete/<int:todo_id>', methods=["POST"])
+@app.route('/delete/<int:todo_id>')
 def delete(todo_id):
     # delete item
     todo = Todo.query.filter_by(id=todo_id).first()
