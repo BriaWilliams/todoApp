@@ -1,8 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-# from werkzeug.utils import secure_filename
-# from flask_bootstrap import Bootstrap
-# from flaskr.models.todo import *
 from markupsafe import escape
 
 app = Flask(__name__)
