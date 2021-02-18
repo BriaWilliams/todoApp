@@ -6,6 +6,8 @@ A simple To-Do app powered by Flask and performs CRUD operations using SQLAlchem
 
 For styling [semantic-ui](https://semantic-ui.com/) is used.
 
+![App screenshot](todoApp.png "A screenshot of the finished app with 2 items shown, items have update and delete buttons to change the status and remove the item, respectively.")
+
 ## Dependencies
 
 You will need to install [Flask](https://flask.palletsprojects.com/en/1.1.x/installation/#installation) following the installation instructions in the documentation.
