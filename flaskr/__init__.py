@@ -26,12 +26,9 @@ def hello(name=None):
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        todo_list = Todo.query.all()
-        print(todo_list)
-        return render_template('index.html', todo_list=todo_list)
-    return 'You are not logged in'
-
+    todo_list = Todo.query.all()
+    print(todo_list)
+    return render_template('index.html', todo_list=todo_list)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
