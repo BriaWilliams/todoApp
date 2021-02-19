@@ -43,3 +43,9 @@ Run the app
 $ flask run
 ```
 
+## Deployment
+The To-Do app is deployed at [https://hello-flaskr.herokuapp.com/](https://hello-flaskr.herokuapp.com/). I used Heroku CLI to deploy my app. I used this [article](https://medium.com/@gitaumoses4/deploying-a-flask-application-on-heroku-e509e5c76524) from Medium to teach myself the process. 
+
+It is a fairly simple process; some hiccups I ran into were making sure the Procfile had the correct contents and including all my packages in the requirements.txt.
+
+
