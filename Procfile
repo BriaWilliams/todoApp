@@ -1,1 +1,1 @@
-gunicorn -b :5000 --access-logfile - --error-logfile - wsgi:app
+web: gunicoSrn -b :5000 --access-logfile - --error-logfile - wsgi:app
